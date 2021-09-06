@@ -3,13 +3,32 @@
 */
 // void function();
 String command;
+int relayOne = 10;
+int relayTwo = 11;
+//---------------------FUNCTIONS------------------------------------------
+void FUNC4()
+{
+  Serial.print("\nRelay 2 is off\n");
+  digitalWrite(11,HIGH);
+}
+void FUNC3()
+{
+  Serial.print("\nRelay 2 is on\n");
+  digitalWrite(11,LOW);
+}
+
+
+
 void FUNC2()
 {
-  Serial.print("\nFunc2 is called\n");
+  Serial.print("\nRelay 1 is off\n");
+  digitalWrite(10,HIGH);  // turns off relay 1
 }
 void function()
 { 
-  Serial.print("\nFunction is called. \n");
+  Serial.print("\nRelay 1 is on. \n");
+  digitalWrite(10,LOW); // Turns on relay 1
+  
   
   
   return 0;
@@ -18,6 +37,8 @@ void setup()
 {
   Serial.begin(9600);
   // function(command);
+  pinMode(10,OUTPUT);
+  pinMode(11,OUTPUT);
 }
 
 
@@ -25,14 +46,22 @@ void loop()
 {
   if(Serial.available()){
     command = Serial.readStringUntil('\n');
-    if(command.equals("a")){
+    if(command.equals("c")){
       Serial.print("\nIT WORKS\n");
       function();
       
     }
-    else
+    else if(command.equals("d"))
     {
       FUNC2();
+    }
+    else if(command.equals("a"))
+    {
+      FUNC3();
+    }
+    else if(command.equals("b"))
+    {
+      FUNC4();
     }
     
   }
